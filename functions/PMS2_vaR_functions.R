@@ -50,7 +50,7 @@ pms2_realignment <- function(args, tools, vardict, output.samples.dir){
     #APROACH 1 ----
 
     ### 1. Filter gen + pseudogen regions with samtools
-    position.filter <- ifelse(args$genome=="hg19", "7:6012830-6049024 7:6774736-6791432 >", "7:5973199-66584037 7:6735105-6751801 >")
+    position.filter <- ifelse(args$genome=="hg19", "7:6012830-6049024 7:6774736-6791432 >", "chr7:5973199-66584037 chr7:6735105-6751801 >")
     cmd1 <-paste(tools$samtools, "view -b -h", full, position.filter, filtered.bam)
     print(cmd1); system(cmd1)
 
@@ -108,7 +108,7 @@ pms2_realignment <- function(args, tools, vardict, output.samples.dir){
     ### 1.1 Outside E11 -> Filter with samtools the regions of interst
     position.filter.outside.E11 <- ifelse(args$genome == "hg19",
                                           "7:6012830-6022822 7:6029231-6049024 7:6774736-6775220 7:6781116-6791432 >",
-                                          "7:5973199-5983191 7:5989600-6009393 7:6735105-6735589 7:6741485-6751801 >")
+                                          "chr7:5973199-5983191 chr7:5989600-6009393 chr7:6735105-6735589 chr7:6741485-6751801 >")
 
     cmd1 <-paste(tools$samtools, "view -b -h", full,  position.filter.outside.E11, filtered.bam.E11.1)
     print(cmd1); system(cmd1)
@@ -117,7 +117,7 @@ pms2_realignment <- function(args, tools, vardict, output.samples.dir){
     #### 1.2.1 Filter considering the invariable variants detailed in Gould et al
     invariable.positions <- ifelse(args$genome == "hg19",
                                    "7:6026364-6026364 7:6026598-6026598 7:6026601-6026601 7:6026625-6026625 7:6026636-6026636 7:6026707-6026707 7:6027017-6027017 7:6027474-6027474 >",
-                                   "7:5986733-5986733 7:5986967-5986967 7:5986970-5986970 7:5986994-5986994 7:5987005-5987005 7:5987076-5987076 7:5987386-5987386 7:5987843-5987843 >")
+                                   "chr7:5986733-5986733 chr7:5986967-5986967 chr7:5986970-5986970 chr7:5986994-5986994 chr7:5987005-5987005 chr7:5987076-5987076 chr7:5987386-5987386 chr7:5987843-5987843 >")
     cmd1.2 <- paste(tools$samtools, "view -b -h", full, invariable.positions, filtered.bam.E11.2)
     print(cmd1.2); system(cmd1.2)
     #### 1.2.2 Get reads name that overlap with this 7 positions (without duplicates)

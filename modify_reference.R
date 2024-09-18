@@ -33,9 +33,9 @@ args <- parse_args(opt_parser);
 
 
 # Get the line where chromosome 7 and 8 start in the reference genome
-cmd1 <- paste('grep -n ">7 dna:"',  args$reference)
+cmd1 <- paste('grep -n ">chr7  AC:"',  args$reference)
 chr7 <- system(cmd1, intern=TRUE) %>% stringr::str_extract("[0-9]+") %>% as.numeric()
-cmd2 <- paste('grep -n ">8 dna:"',  args$reference)
+cmd2 <- paste('grep -n ">chr8  AC:"',  args$reference)
 chr8 <- system(cmd2, intern=TRUE)%>% stringr::str_extract("[0-9]+") %>% as.numeric()
 
 
@@ -53,7 +53,7 @@ pms2clb <- paste0(pms2cl[1], collapse="")
 
 #Read the chr7 fasta file as a DNAstring and convert it to a character
 genome <- readDNAStringSet(file.path(direct, "chr7.fa"))
-ref2 <- paste0(genome$`7`, collapse = "")
+ref2 <- paste0(genome$`chr7`, collapse = "")
 
 #Locate where the pms2cl sequence is in the chr7 fasta file
 base <- stringr::str_locate(ref2, pms2clb)
@@ -96,5 +96,3 @@ unlink(file.path(args$outputdir, "reference_part1.fa"))
 unlink(file.path(args$outputdir, "reference_part3.fa"))
 unlink(file.path(args$outputdir, "N.txt"))
 unlink(file.path(direct, "chr7.fa"))
-
-
